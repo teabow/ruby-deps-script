@@ -24,4 +24,4 @@ rake output=DEPS.MD deps=/path/to/package.json,path/to/Podfile,path/to/build.gra
 
 ## TODO
 
-- find and replace versions declare as variables
+- check licenses in `node_modules`
