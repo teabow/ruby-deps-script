@@ -58,7 +58,7 @@ def format_dependency(name, version, versions_ref)
 end
 
 files = ARGV[1].split(DELIMITER)
-versions_hash_ref = nil
+versions_hash_ref = {}
 output_content = files.collect{ |filename|
     content = ["", []]
     shortened_filename = extract_file_from_path(filename)
