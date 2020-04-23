@@ -1,4 +1,4 @@
-# Ruby dependencies list script
+# Ruby dependencies listing script
 
 ## Use
 
