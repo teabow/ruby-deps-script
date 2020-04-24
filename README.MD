@@ -21,7 +21,3 @@ Multiple files :
 ```
 rake output=DEPS.MD deps=/path/to/package.json,path/to/Podfile,path/to/build.gradle
 ```
-
-## TODO
-
-- check licenses in `node_modules`
