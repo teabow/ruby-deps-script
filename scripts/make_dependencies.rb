@@ -80,20 +80,24 @@ end
 
 files = ARGV[1].split(DELIMITER)
 versions_hash_ref = {}
+
 output_content =
   files.collect do |filename|
     content = ['', []]
     shortened_filename = extract_file_from_path(filename)
+    # handle node dependencies
     if filename.match?(/package.json/)
       content = [
         "#{shortened_filename} (web/node)",
         parse_node_dependencies(filename)
       ]
+    # handle pods dependencies
     elsif filename.match?(/Podfile/)
       content = [
         "#{shortened_filename} (iOS)",
         parse_pods_dependencies(filename)
       ]
+    # handle gradle dependencies with app module
     elsif filename.match?(%r{app\/build.gradle})
       # process root gradle file
       root_gradle_path = filename.gsub('/app', '')
@@ -103,6 +107,7 @@ output_content =
         parse_gradle_dependencies(filename)
       versions_hash_ref = root_versions_hash_ref.merge(app_versions_hash_ref)
       content = ["#{shortened_filename} (android)", gradle_dependencies]
+    # handle gradle dependencies
     elsif filename.match?(/build.gradle/)
       versions_hash_ref, gradle_dependencies =
         parse_gradle_dependencies(filename)
@@ -118,9 +123,7 @@ File.open(OUTPUT_PATH, 'w') do |file|
   output_content.each do |filename, dependencies|
     file.puts "# #{filename}"
     dependencies.each do |name, version, license|
-      file.puts "- #{
-                  format_dependency(name, version, versions_hash_ref, license)
-                }"
+      file.puts "- #{format_dependency(name, version, versions_hash_ref, license)}"
     end
     file.puts @string
   end
