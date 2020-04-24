@@ -24,15 +24,19 @@ def parse_node_dependencies(file)
 end
 
 def read_node_package_license(pkg_name, package_json_path)
-  pkg_directory = package_json_path.gsub('package.json', 'node_modules')
-  pkg_package_json_path =
-    "#{pkg_directory}#{File::SEPARATOR}#{pkg_name}#{
-      File::SEPARATOR
-    }package.json"
+  begin
+    pkg_directory = package_json_path.gsub('package.json', 'node_modules')
+    pkg_package_json_path =
+      "#{pkg_directory}#{File::SEPARATOR}#{pkg_name}#{
+        File::SEPARATOR
+      }package.json"
 
-  pkg_package_json_content = File.read(pkg_package_json_path)
-  pkg_package_json_map = JSON.parse(pkg_package_json_content)
-  return pkg_package_json_map['license'] || ''
+    pkg_package_json_content = File.read(pkg_package_json_path)
+    pkg_package_json_map = JSON.parse(pkg_package_json_content)
+    return pkg_package_json_map['license'] || ''
+  rescue
+    return ''
+  end
 end
 
 def parse_pods_dependencies(file)
