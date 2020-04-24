@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (2.3.0)
+    prettier (0.18.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  json
+  prettier
+
+BUNDLED WITH
+   2.0.1
